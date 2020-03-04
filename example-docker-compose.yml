@@ -1,0 +1,36 @@
+version: '3.1'
+services:
+  rdm:
+    image: realdevicemap/realdevicemap:latest
+    container_name: realdevicemap
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - images:/app/resources/webroot/static/img
+      - backups:/app/backups
+#     - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 127.0.0.1:9000:9000
+      - 127.0.0.1:9001:9001
+    environment:
+      DB_DATABASE: rdmdb
+      DB_HOST: 123.456.789.1
+      DB_PORT: 3306
+      DB_USERNAME: rdmuser
+      DB_PASSWORD: bEtteRmAkeitG00d
+      DB_ROOT_USERNAME: root
+      DB_ROOT_PASSWORD: Mak3this1evenbetter
+      WEB_SERVER_ADDRESS: 0.0.0.0
+      WEB_SERVER_PORT: 9000
+      WEBHOOK_SERVER_ADDRESS: 0.0.0.0
+      WEBHOOK_SERVER_PORT: 9001
+      VERBOSE: 2
+#Verbose settings: 0 = silent, 1 = standard 2 = extended
+    network_mode: "bridge"
+volumes:
+  images:
+    driver: local
+  backups:
+    driver: local
+  data:
+    driver: local
